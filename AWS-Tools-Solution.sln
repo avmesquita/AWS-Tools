@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aws-send2s3", "aws-send2s3\aws-send2s3.csproj", "{F119ACEF-9BBD-4BAC-A361-42E4D90E566D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aws-getfroms3", "aws-getfroms3\aws-getfroms3.csproj", "{9692E8A9-07B7-4FF3-94C9-77B3832DE10C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aws-security-group-access-rule", "aws-security-group-access-rule\aws-security-group-access-rule.csproj", "{07412031-B600-453F-8C09-4EC13779B4DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F119ACEF-9BBD-4BAC-A361-42E4D90E566D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F119ACEF-9BBD-4BAC-A361-42E4D90E566D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F119ACEF-9BBD-4BAC-A361-42E4D90E566D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9692E8A9-07B7-4FF3-94C9-77B3832DE10C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9692E8A9-07B7-4FF3-94C9-77B3832DE10C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9692E8A9-07B7-4FF3-94C9-77B3832DE10C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9692E8A9-07B7-4FF3-94C9-77B3832DE10C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07412031-B600-453F-8C09-4EC13779B4DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07412031-B600-453F-8C09-4EC13779B4DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07412031-B600-453F-8C09-4EC13779B4DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07412031-B600-453F-8C09-4EC13779B4DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

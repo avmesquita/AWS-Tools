@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Amazon.S3.Model;
+using Amazon.S3.Transfer;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,21 +39,21 @@ namespace aws_getfroms3
 
             ModalidadeTransferencia modalidadeTransferencia = ModalidadeTransferencia.Download;
 
-            file = new System.IO.StreamWriter(@"C:\ImpetoRecebeS3.log", true);
+            file = new System.IO.StreamWriter(@"C:\TEMP\aws-getfroms3.log", true);
 
             string Sintaxe = "";
             Sintaxe = " " + Environment.NewLine +
-                      "SINTAXE:" + Environment.NewLine +
+                      "SINTAX:" + Environment.NewLine +
                       " " + Environment.NewLine +
-                      " > ImpetoRecebeS3.exe <modo>,<nome_bucket>,<chave>,<segredo>,<caminho_completo> " + Environment.NewLine +
+                      " > aws-getfroms3.exe <mode>,<bucket>,<key>,<secret>,<full-path> " + Environment.NewLine +
                       " " + Environment.NewLine +
-                      "OBS.: SE <modo> = 'A' ou não informado, será considerado o arquivo de configuração." + Environment.NewLine +
+                      "PS.: IF <mode> = 'A' or null, config file will be considered." + Environment.NewLine +
                       " " + Environment.NewLine;
 
             PutObjectResponse resposta = null;
 
-            file.WriteLine("Carregando configurações...");
-            Console.WriteLine("Carregando configurações...");
+            file.WriteLine("Loading configs...");
+            Console.WriteLine("Loading configs...");
 
             // Carrega os parâmetros ou exibe mensagem sobre sinxaxe
             if (!carregouParametros(args))
@@ -71,8 +75,8 @@ namespace aws_getfroms3
 
             if (!File.Exists(caminho_arquivo))
             {
-                Console.WriteLine("Arquivo inexistente.");
-                file.WriteLine("Arquivo inexistente.");
+                Console.WriteLine("File not found.");
+                file.WriteLine("File not found.");
                 return;
             }
 
@@ -85,8 +89,8 @@ namespace aws_getfroms3
                     switch (modalidadeTransferencia)
                     {
                         case ModalidadeTransferencia.Download:
-                            file.WriteLine("Criando requisição para download do Bucket S3 " + meuBucket + "...");
-                            Console.WriteLine("Criando requisição para download do Bucket S3 " + meuBucket + "...");
+                            file.WriteLine("Creating request to download from bucket " + meuBucket + "...");
+                            Console.WriteLine("Creating request to download from bucket " + meuBucket + "...");
 
                             TransferUtilityDownloadRequest requestDownload = new TransferUtilityDownloadRequest()
                             {
@@ -94,21 +98,21 @@ namespace aws_getfroms3
                                 FilePath = caminho_arquivo
                             };
 
-                            Console.WriteLine("Iniciando download...");
-                            file.WriteLine("Iniciando download...");
+                            Console.WriteLine("Starting download...");
+                            file.WriteLine("Starting download...");
                             transfer.Download(requestDownload);
-                            Console.WriteLine("... download finalizado.");
-                            file.WriteLine("... download finalizado.");
+                            Console.WriteLine("... download done.");
+                            file.WriteLine("... download done.");
 
-                            Console.WriteLine("/nArquivo recebido.");
-                            file.WriteLine("/nArquivo recebido.");
+                            Console.WriteLine("/nFile received.");
+                            file.WriteLine("/nFile received.");
 
                             break;
 
                         case ModalidadeTransferencia.Upload:
 
-                            file.WriteLine("Criando requisição para envio ao Bucket S3 " + meuBucket + "...");
-                            Console.WriteLine("Criando requisição para envio ao Bucket S3 " + meuBucket + "...");
+                            file.WriteLine("Creating request to upload to bucket " + meuBucket + "...");
+                            Console.WriteLine("Creating request to upload to bucket " + meuBucket + "...");
 
                             TransferUtilityUploadRequest requestUpload = new TransferUtilityUploadRequest()
                             {
@@ -116,14 +120,11 @@ namespace aws_getfroms3
                                 FilePath = caminho_arquivo
                             };
 
-                            Console.WriteLine("Iniciando envio...");
-                            file.WriteLine("Iniciando envio...");
+                            Console.WriteLine("Starting sending...");
+                            file.WriteLine("Starting sending...");
                             transfer.Upload(requestUpload);
-                            Console.WriteLine("... envio finalizado.");
-                            file.WriteLine("... envio finalizado.");
-                            Console.WriteLine("/nArquivo enviado.");
-                            file.WriteLine("/nArquivo enviado.");
-
+                            Console.WriteLine("... file sent.");
+                            file.WriteLine("... file sent.");
                             break;
                     }
                 }
@@ -138,7 +139,7 @@ namespace aws_getfroms3
             }
             catch (Exception ex)
             {
-                string msgErro = "Ocorreu erro no envio do objeto." + Environment.NewLine +
+                string msgErro = "An error occourred." + Environment.NewLine +
                                   "[INTERNAL_MESSAGE=" + ex.Message.ToString() + Environment.NewLine;
                 if (ex.InnerException != null)
                     msgErro += "] & [INNER_MESSAGE=" + ex.InnerException.Message.ToString() + Environment.NewLine;
@@ -156,12 +157,12 @@ namespace aws_getfroms3
             {
                 if (modoDebug == Debug.Ligado)
                 {
-                    Console.WriteLine("Resposta do S3...");
-                    file.WriteLine("Resposta do S3...");
+                    Console.WriteLine("Awswer from S3...");
+                    file.WriteLine("Awswer from S3...");
                     if (resposta == null)
                     {
-                        Console.WriteLine("Resposta do Servidor foi nula.");
-                        file.WriteLine("Resposta do Servidor foi nula.");
+                        Console.WriteLine("Awswer from S3 was null.");
+                        file.WriteLine("Awswer from S3 was null.");
                     }
                     else
                     {
